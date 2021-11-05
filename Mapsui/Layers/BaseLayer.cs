@@ -68,6 +68,11 @@ namespace Mapsui.Layers
         /// </summary>
         public event DataChangedEventHandler DataChanged;
 
+        /// <summary>
+        /// DataChanging should be triggered by any data changing
+        /// </summary>
+        public event DataChangingEventHandler DataChanging;
+
         /// <inheritdoc />
         public int Id { get; }
 
@@ -192,6 +197,16 @@ namespace Mapsui.Layers
         public void DataHasChanged()
         {
             DataChanged?.Invoke(this, new DataChangedEventArgs());
+        }
+
+        public void DataHasStartedChanging()
+        {
+            DataChanging?.Invoke( this, new DataChangingStartEventArgs( Name ) );
+        }
+
+        public void DataHasStoppedChanging()
+        {
+            DataChanging?.Invoke( this, new DataChangingEndEventArgs( Name) );
         }
 
         public override string ToString()

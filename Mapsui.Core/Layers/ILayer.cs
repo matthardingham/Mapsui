@@ -108,6 +108,12 @@ namespace Mapsui.Layers
         event DataChangedEventHandler DataChanged;
 
         /// <summary>
+        /// Event called when the data within the layer is changing allowing
+        /// listeners to react to this.
+        /// </summary>
+        event DataChangingEventHandler DataChanging;
+
+        /// <summary>
         /// Indicates that there has been a change in the view of the map
         /// </summary>
         /// If Discrete an implementation should always refresh it's data. If Continuous the

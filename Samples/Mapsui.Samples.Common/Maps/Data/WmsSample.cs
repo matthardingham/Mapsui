@@ -17,9 +17,20 @@ namespace Mapsui.Samples.Common.Maps.Data
         public static Map CreateMap()
         {
             var map = new Map { CRS = "EPSG:28992" };
+
             // The WMS request needs a CRS
-            map.Layers.Add(CreateLayer());
+            var imageLayer = CreateLayer();
+
+            imageLayer.DataChanging += ImageLayer_DataChanging;
+
+            map.Layers.Add( imageLayer );
+
             return map;
+        }
+
+        private static void ImageLayer_DataChanging( object sender, Fetcher.DataChangingEventArgs e )
+        {
+            System.Diagnostics.Debug.WriteLine( e.Time.ToString() );
         }
 
         public static ILayer CreateLayer()

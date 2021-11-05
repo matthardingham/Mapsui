@@ -59,4 +59,38 @@ namespace Mapsui.Fetcher
         public object Info { get; }
         public string LayerName { get; }
     }
+
+    public sealed class DataChangingStartEventArgs :
+        DataChangingEventArgs
+    {
+        public DataChangingStartEventArgs( string layerName ) :
+            base( DateTime.Now.TimeOfDay, layerName )
+        {
+
+        }
+    }
+
+    public sealed class DataChangingEndEventArgs :
+        DataChangingEventArgs
+    {
+        public DataChangingEndEventArgs( string layerName ) :
+            base( DateTime.Now.TimeOfDay, layerName )
+        {
+
+        }
+    }
+
+    public delegate void DataChangingEventHandler( object sender, DataChangingEventArgs e );
+
+    public class DataChangingEventArgs : EventArgs
+    {
+        public DataChangingEventArgs( TimeSpan time, string layerName )
+        {
+            Time = time;
+            LayerName = layerName;
+        }
+
+        public TimeSpan Time { get; }
+        public string LayerName { get; }
+    }
 }
